@@ -13,13 +13,20 @@ const int thresh_max = 100;
 double t;
  vector<Vec4i> linesP;
 
-void on_trackbar( int, void* )
+void on_trackbar( int , void* )
 
 {
-  t = thresh;
+  
+  cdstP = cdst.clone();
+  HoughLinesP(dst, linesP, 1, CV_PI/180, thresh, 50, 10 );
  
-  HoughLinesP(dst, linesP, 1, CV_PI/180, t, 50, 10 );
-  imshow( "Linear Blend", cdstP );
+   for( size_t i = 0; i < linesP.size(); i++ )
+    {
+        Vec4i l = linesP[i];
+        line( cdstP, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, LINE_AA);
+    }
+   imshow( "Linear Blend", cdstP );
+
 }
 
 
@@ -39,24 +46,28 @@ int main(int argc, char** argv){
   cdstP = cdst.clone();
 
    // will hold the results of the detection
-  namedWindow("My Window", 1);
+  namedWindow("Linear Blend", 1);
 
  
-  for( size_t i = 0; i < linesP.size(); i++ )
-    {
-        Vec4i l = linesP[i];
-        line( cdstP, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0,0,255), 3, LINE_AA);
-    }
-
-  thresh = 0;
+ 
+  thresh = 50;
   char TrackbarName[50];
-  createTrackbar("Brightness", "My Window", &thresh,thresh_max,on_trackbar);
+  sprintf( TrackbarName, "Alpha x %d", thresh_max);
+
+  createTrackbar("threshold", "Linear Blend", &thresh,thresh_max,on_trackbar);
 
   on_trackbar(thresh,0);
 
   imshow("source", src);
-  imshow("detected lines", cdstP);
-  waitKey();
-  return 0;
+  // imshow("detected lines", cdstP);
+  while(true)
+  {
+    int c;
+    c = waitKey( 20 );
+    if( (char)c == 27 )
+      { break; }
+  }
+  //waitKey();
+  //return 0;
 
 }
