@@ -11,4 +11,8 @@
 
 ### Detecting circles   
 
-`python hc.py -i image.png`
+`python hc.py -i image.png`  
+
+``` g++ hc.cpp `pkg-config --cflags --libs opencv` ```
+
+
