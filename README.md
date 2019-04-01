@@ -6,7 +6,7 @@
 
 `python3 h.py -i image.png`  
 
-`g++ h.cpp -o app `pkg-config --cflags --libs opencv` `
+```g++ h.cpp `pkg-config --cflags --libs opencv` ```
 
 
 ### Detecting circles   
