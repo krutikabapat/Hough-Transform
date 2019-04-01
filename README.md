@@ -2,4 +2,4 @@
 
 ## Usage:-  
 
-' python3 hc.py -i image.png'  
+`python3 hc.py -i image.png`  
