@@ -15,4 +15,6 @@
 
 ``` g++ hc.cpp `pkg-config --cflags --libs opencv` ```
 
+### References   
 
+1. http://homepages.inf.ed.ac.uk/rbf/HIPR2/hough.htm    
